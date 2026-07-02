@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+:root {
+  --sidebar-bg: #ffffff;
+  --sidebar-text: #111827;
+  --sidebar-border: #e5e7eb;
+}
+
+/* Ensure sidebar remains visible against dark mode extensions */
+.railway-sidebar {
+  background-color: var(--sidebar-bg) !important;
+  color: var(--sidebar-text) !important;
+  border-right-color: var(--sidebar-border) !important;
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 50 !important;
+}
+
+/* ─── Base Typography ────────────────────────────────────────────────────── */
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ─── WCAG Color Overrides ───────────────────────────────────────────────── */
+/* Ensure minimum 4.5:1 contrast ratio for text */
+
+.text-gray-400 {
+  color: #6b7280 !important; /* Bumped from default gray-400 for WCAG AA */
+}
+
+.text-gray-500 {
+  color: #4b5563 !important; /* Bumped from default gray-500 for readability */
+}
+
+/* ─── Receipt Monospace Layout ───────────────────────────────────────── */
+
+.receipt-container {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.receipt-mono {
+  font-family: 'Courier New', 'Consolas', 'Liberation Mono', monospace;
+}
+
+/* ─── Print Styles ───────────────────────────────────────────────────── */
+
+@media print {
+  .print\:hidden {
+    display: none !important;
+  }
+  body {
+    font-size: 10pt;
+    margin: 0;
+    padding: 0;
+  }
+  .receipt-container {
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+  /* A4 page setup */
+  @page {
+    size: A4 portrait;
+    margin: 15mm;
+  }
+}
+
+/* ─── Smooth Scrolling ───────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── Focus Styles ───────────────────────────────────────────────────────── */
+
+*:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────────── */
+
+::selection {
+  background: #bfdbfe;
+  color: #1e3a5f;
+}
+
+/* ─── Animated Delete Button ─────────────────────────────────────────────── */
+
+.animated-delete-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
+  gap: 1px;
+}
+
+.animated-delete-btn .svgIcon {
+  width: 12px;
+  transition-duration: 0.3s;
+}
+
+.animated-delete-btn .svgIcon path {
+  fill: white;
+}
+
+.animated-delete-btn:hover {
+  width: 220px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
+  gap: 0;
+}
+
+.animated-delete-btn:hover .bin-bottom {
+  width: 50px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+}
+.animated-delete-btn .bin-top {
+  transform-origin: bottom right;
+}
+.animated-delete-btn:hover .bin-top {
+  width: 50px;
+  transition-duration: 0.3s;
+  transform: translateY(60%) rotate(160deg);
+}
+.animated-delete-btn::before {
+  position: absolute;
+  top: -20px;
+  content: attr(data-text);
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+  white-space: nowrap;
+}
+
+.animated-delete-btn:hover::before {
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(35px);
+  transition-duration: 0.3s;
+}
